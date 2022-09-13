@@ -47,10 +47,10 @@ def getPriceArray(data):
         # priceDate = datetime.strptime(day, '%Y-%m-%d').date()
 
         ary = [[day,{
-            OPEN: data[TIME_SERIES_DAILY][day][TIME_SERIES_OPEN],
-            HIGH: data[TIME_SERIES_DAILY][day][TIME_SERIES_HIGH],
-            LOW: data[TIME_SERIES_DAILY][day][TIME_SERIES_LOW],
-            CLOSE: data[TIME_SERIES_DAILY][day][TIME_SERIES_CLOSE]
+            OPEN: float(data[TIME_SERIES_DAILY][day][TIME_SERIES_OPEN]),
+            HIGH: float(data[TIME_SERIES_DAILY][day][TIME_SERIES_HIGH]),
+            LOW: float(data[TIME_SERIES_DAILY][day][TIME_SERIES_LOW]),
+            CLOSE: float(data[TIME_SERIES_DAILY][day][TIME_SERIES_CLOSE])
         }]] + ary
     
     return ary
@@ -60,7 +60,7 @@ def getSMAArray(data):
     ary = []
 
     for day in data[TA_SMA]:
-        ary = [[day, data[TA_SMA][day][SMA]]] + ary
+        ary = [[day, float(data[TA_SMA][day][SMA])]] + ary
     return ary
 
 def getEMAArray(data):    
@@ -68,7 +68,7 @@ def getEMAArray(data):
     ary = []
 
     for day in data[TA_EMA]:
-        ary = [[day, data[TA_EMA][day][EMA]]] + ary
+        ary = [[day, float(data[TA_EMA][day][EMA])]] + ary
     return ary
 
 def matchArrayLength(shortAry,longAry):
@@ -79,3 +79,6 @@ def matchArrayLength(shortAry,longAry):
         else:
             longAry.pop(0)
     return longAry
+
+def getTrendArray(trendCount):
+    return ['trend '+trendCount , { 'dateStart':'', 'dateEnd':'', 'days':0, 'upDays':0, 'downDays':0 }]
