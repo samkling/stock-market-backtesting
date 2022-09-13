@@ -15,6 +15,7 @@ HIGH = 'high'
 LOW = 'close'
 CLOSE = 'low'
 OPEN = 'open'
+VOLUME = 'volume'
 
 #   MOVING AVERAGE CONSTANTS
 TA_SMA = 'Technical Analysis: SMA'
@@ -50,7 +51,8 @@ def getPriceArray(data):
             OPEN: float(data[TIME_SERIES_DAILY][day][TIME_SERIES_OPEN]),
             HIGH: float(data[TIME_SERIES_DAILY][day][TIME_SERIES_HIGH]),
             LOW: float(data[TIME_SERIES_DAILY][day][TIME_SERIES_LOW]),
-            CLOSE: float(data[TIME_SERIES_DAILY][day][TIME_SERIES_CLOSE])
+            CLOSE: float(data[TIME_SERIES_DAILY][day][TIME_SERIES_CLOSE]),
+            VOLUME: int(data[TIME_SERIES_DAILY][day][TIME_SERIES_VOLUME])
         }]] + ary
     
     return ary
