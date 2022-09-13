@@ -1,5 +1,11 @@
 import utils as u
 
+DATE_START = 'dateStart'
+DATE_END = 'dateEnd'
+DAYS = 'days'
+UP_DAYS = 'upDays'
+DOWN_DAYS = 'downDays'
+
 
 def main():
     u.log('Start Market Trend Backtest')
@@ -27,16 +33,49 @@ def analyze_50_10_trend():
     sma50Array = u.getSMAArray(sma50Data)
     ema10Array = u.getEMAArray(ema10Data)
 
-    print(len(sma50Array))
-    print(len(ema10Array))
-    print(len(priceArray))
+    u.log(len(sma50Array))
+    u.log(len(ema10Array))
+    u.log(len(priceArray))
 
     ema10Array = u.matchArrayLength(sma50Array, ema10Array)
     priceArray = u.matchArrayLength(sma50Array, priceArray)
     
-    print(len(sma50Array))
-    print(len(ema10Array))
-    print(len(priceArray))
+    u.log(len(sma50Array))
+    u.log(len(ema10Array))
+    u.log(len(priceArray))
+
+    marketLength = len(priceArray)
+
+    dayCount = 0
+    trendCount = 0
+    resultsArray = [['trend 1', { DATE_START:'', DATE_END:'', DAYS:0, UP_DAYS:0, DOWN_DAYS:0 }]]
+
+    for i in range(marketLength):
+        closingPrice = priceArray[i][1][u.CLOSE]
+        vDate = priceArray[i][0]
+        emaPrice = ema10Array[i][1]
+        smaPrice = sma50Array[i][1]
+        above_50day = closingPrice > smaPrice
+        above_10day = closingPrice > emaPrice
+        _10day_above_50day = emaPrice > smaPrice
+
+        if dayCount == 0: # find start of trend
+            if above_50day:
+                u.log('Trend Starts')
+                resultsArray[-1][0][DAYS] += 1
+                resultsArray[-1][0][DATE_START] = vDate
+
+
+        
+        if (closingPrice > emaPrice) and (closingPrice > smaPrice):
+            
+        
+        break
+
+
+
+
+
 
     u.log('Finished 50sma - 10ema trend analysis')
 
