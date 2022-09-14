@@ -1,6 +1,7 @@
 import os
 import json
-from datetime import datetime
+import csv
+from datetime import date, datetime
 
 #   DAILY PRICES CONSTANTS
 TIME_SERIES_DAILY = 'Time Series (Daily)'
@@ -84,3 +85,20 @@ def matchArrayLength(shortAry,longAry):
 
 def getTrendArray(trendCount):
     return ['trend '+trendCount , { 'dateStart':'', 'dateEnd':'', 'days':0, 'upDays':0, 'downDays':0 }]
+
+def createDate(datestr):
+    newDateAry = datestr.split('-')
+    return date(int(newDateAry[0]),int(newDateAry[1]),int(newDateAry[2]))
+    
+def getToday():
+    return date.today()
+
+def getNow():
+    return datetime.now()
+
+def saveHVDataToCSV(hvData, ticker):
+    with open(getDir() + '/edgeStudyResults/hvStudies/' + ticker + '-' + getNow().strftime("%Y-%m-%d_%H-%M-%S") + '.csv', 'w') as f:
+        writer = csv.writer(f)
+        writer.writerow(hvData[0])
+        writer.writerows(hvData[1:])
+    log('File saved for: ' + ticker)
