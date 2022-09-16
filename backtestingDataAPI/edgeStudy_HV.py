@@ -23,6 +23,7 @@ def hvStudy(ticker):
     u.saveHVDataToCSV(hvData, ticker)
 
 def gatherHvDates(data):
+    minimumVolume = 1000000
     # highest volume ever           "HVE"
     hve = 0
 
@@ -61,7 +62,7 @@ def gatherHvDates(data):
             print(day[1]['close'])
             print(prevDay[1]['close'])
 
-        if (dayVolume < 700000 or isRedDay) and hve > 0:
+        if (dayVolume < minimumVolume or isRedDay) and hve > 0:
             pass
         elif dayVolume > hve:
             hve = dayVolume
