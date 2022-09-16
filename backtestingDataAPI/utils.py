@@ -97,7 +97,7 @@ def getNow():
     return datetime.now()
 
 def saveHVDataToCSV(hvData, ticker):
-    with open(getDir() + '/edgeStudyResults/hvStudies/' + ticker + '-' + getNow().strftime("%Y-%m-%d_%H-%M-%S") + '.csv', 'w') as f:
+    with open(getDir() + '/data/edgeStudyResults/hvStudies/' + ticker + '-' + getNow().strftime("%Y-%m-%d_%H-%M-%S") + '.csv', 'w') as f:
         writer = csv.writer(f)
         writer.writerow(hvData[0])
         writer.writerows(hvData[1:])
